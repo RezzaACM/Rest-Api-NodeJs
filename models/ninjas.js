@@ -13,9 +13,20 @@ const NinjaSchema = new Schema({
     available: {
         type: Boolean,
         default: false
+    },
+    created_at: {
+        type: Date,
+        default: Date.now
+    },
+    updated_at: {
+        type: Date,
+        default: Date.now
     }
 })
 
-const Ninja = mongoose.model('ninja', NinjaSchema);
+// Export contact model
+const Ninja = module.exports = mongoose.model('ninja', NinjaSchema);
 
-module.exports = Ninja;
+module.exports.get = function (callback, limit) {
+    Ninja.find(callback).limit(limit)
+}
